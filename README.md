@@ -1,5 +1,3 @@
-# Leo Fleury
-
 Graduate student pursuing Masters in Business Analytics at UCSD, building projects that help business have efficient operations.
 
 ## Operations Analytics Project: Rogers Market
