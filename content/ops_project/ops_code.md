@@ -1,18 +1,23 @@
----
-title: "Verifying Little's Law Using and Inventory Build Up Diagram of UCSD's Rogers Market"
-format: gfm
----
+# Verifying Little’s Law Using and Inventory Build Up Diagram of UCSD’s
+Rogers Market
+
+
 ## Introduction
 
 ### Data Set:
-This is transaction-level data from Rogers Market with Amazon Just Walk Out technology on Feb. 28, 2024.
+
+This is transaction-level data from Rogers Market with Amazon Just Walk
+Out technology on Feb. 28, 2024.
 
 ### Problem:
-"On average, how many customers are in Rogers Market at any given time based on how many come in every hour and how long they stay in the store?"
+
+“On average, how many customers are in Rogers Market at any given time
+based on how many come in every hour and how long they stay in the
+store?”
 
 ### Solution:
 
-We are going to verify Little's Law:
+We are going to verify Little’s Law:
 
 $$L = \lambda W$$
 
@@ -22,21 +27,27 @@ Where:
 - $\lambda$ = Average arrival rate
 - $W$ = Average time an item spends in the system
 
-We will do this by manually calculating average inventory using an inventory build-up diagram and comparing that with the Little's Law output.
+We will do this by manually calculating average inventory using an
+inventory build-up diagram and comparing that with the Little’s Law
+output.
 
 ### Method:
-* Deduplicated `session_id` to change from line item to order level.
-* Calculated average throughput (arrival rate) and average flow time (duration).
+
+- Deduplicated `session_id` to change from line item to order level.
+- Calculated average throughput (arrival rate) and average flow time
+  (duration).
 
 ### Conclusion
-Showed that average inventory at any given time, calculated from both the inventory diagram and using Little's Law, was ~5.2 customers. Answers are verified and correct.
 
+Showed that average inventory at any given time, calculated from both
+the inventory diagram and using Little’s Law, was ~5.2 customers.
+Answers are verified and correct.
 
----
+------------------------------------------------------------------------
 
 ## Code
 
-```{python}
+``` python
 import polars as pl
 import numpy as np
 import matplotlib.pyplot as plt
@@ -45,8 +56,12 @@ from datetime import datetime
 ```
 
 ### Part 1
-Plotting how many customers entered the store in every 15 minutes from 7AM-11:00PM. Then, calculating how many customers entered the store per hour on average.
-```{python}
+
+Plotting how many customers entered the store in every 15 minutes from
+7AM-11:00PM. Then, calculating how many customers entered the store per
+hour on average.
+
+``` python
 # Load data frame
 market_data = pl.read_csv("Rogers_022824.csv")
 
@@ -107,18 +122,30 @@ avg_R = total_customers / total_hours
 print(f"The average hourly number of people who enter the store is: {int(avg_R)}.")
 ```
 
+![](ops_code_files/figure-commonmark/cell-3-output-1.png)
+
+    The average hourly number of people who enter the store is: 148.
+
 ### Part 2
-Taking the average of trip_duration_mins, considering the group size, to find average flow time of a customer, i.e., on average, how many minutes a customer spends in the store.
-```{python}
+
+Taking the average of trip_duration_mins, considering the group size, to
+find average flow time of a customer, i.e., on average, how many minutes
+a customer spends in the store.
+
+``` python
 weighted_duration = (sess_level["trip_duration_mins"] * sess_level["group_size"]).sum()
 sum_group_size = sess_level["group_size"].sum()
 avg_W = weighted_duration / sum_group_size
 print(f"Average time a customer spends at Rogers Market: {round(avg_W, 1)} minutes.")
 ```
 
+    Average time a customer spends at Rogers Market: 2.1 minutes.
+
 ### Part 3
+
 Constructing the inventory build-up diagram from 7am till 11pm.
-```{python}
+
+``` python
 # Create entry and exit data frames
 entries = sess_level.select(
     pl.col("entry_datetime").alias("time"),
@@ -148,9 +175,15 @@ plt.tight_layout()
 plt.show()
 ```
 
+![](ops_code_files/figure-commonmark/cell-5-output-1.png)
+
 ### Part 4
-Calculating the total time summed up over all customers, i.e., the area under the inventory build-up diagram. Then, calculating the Inventory (or, the average inventory).
-```{python}
+
+Calculating the total time summed up over all customers, i.e., the area
+under the inventory build-up diagram. Then, calculating the Inventory
+(or, the average inventory).
+
+``` python
 # Define start and end to handle last val edge case (null duration for last val)
 start = datetime(2024, 2, 28, 7, 0, 0)
 end   = datetime(2024, 2, 28, 23, 0, 0)
@@ -173,9 +206,13 @@ avg_L = total_area_sec / (end - start).total_seconds()
 print(f"Average inventory of Rogers Market from 7am to 11pm is: {round(avg_L, 1)} customers.")
 ```
 
+    Average inventory of Rogers Market from 7am to 11pm is: 5.2 customers.
+
 ### Part 5
+
 Check the Little’s Law using the answers from above.
-```{python}
+
+``` python
 # Check Little's Law
 # Inventory = Throughput * Flow Time
 
@@ -187,3 +224,7 @@ print(f"Avg. inventory calculated from the inventory diagram is {round(avg_L,1)}
 print(f"Avg. inventory calculated using Little's Law (avg.R * avg.T) is {round(littles_inventory,1)} customers.")
 print("Answers are verified and correct.")
 ```
+
+    Avg. inventory calculated from the inventory diagram is 5.2 customers.
+    Avg. inventory calculated using Little's Law (avg.R * avg.T) is 5.2 customers.
+    Answers are verified and correct.
