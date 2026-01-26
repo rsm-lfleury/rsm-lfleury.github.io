@@ -149,13 +149,6 @@ window.Quarto = {
 </ul>
 <p>We will do this by manually calculating average inventory using an inventory build-up diagram and comparing that with the Little’s Law output.</p>
 </section>
-<section id="method" class="level3">
-<h3 class="anchored" data-anchor-id="method">Method:</h3>
-<ul>
-<li>Deduplicated <code>session_id</code> to change from line item to order level.</li>
-<li>Calculated average throughput (arrival rate) and average flow time (duration).</li>
-</ul>
-</section>
 <section id="conclusion" class="level3">
 <h3 class="anchored" data-anchor-id="conclusion">Conclusion</h3>
 <p>Showed that average inventory at any given time, calculated from both the inventory diagram and using Little’s Law, was ~5.2 customers. Answers are verified and correct.</p>
@@ -164,7 +157,7 @@ window.Quarto = {
 </section>
 <section id="code" class="level2">
 <h2 class="anchored" data-anchor-id="code">Code</h2>
-<div id="fa1186d0" class="cell" data-execution_count="1">
+<div id="bdab9b4b" class="cell" data-execution_count="1">
 <div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> polars <span class="im">as</span> pl</span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
 <span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> matplotlib.pyplot <span class="im">as</span> plt</span>
@@ -174,7 +167,7 @@ window.Quarto = {
 <section id="part-1" class="level3">
 <h3 class="anchored" data-anchor-id="part-1">Part 1</h3>
 <p>Plotting how many customers entered the store in every 15 minutes from 7AM-11:00PM. Then, calculating how many customers entered the store per hour on average.</p>
-<div id="65b82bc5" class="cell" data-execution_count="2">
+<div id="d32096c4" class="cell" data-execution_count="2">
 <div class="sourceCode cell-code" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Load data frame</span></span>
 <span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>market_data <span class="op">=</span> pl.read_csv(<span class="st">"Rogers_022824.csv"</span>)</span>
 <span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a></span>
@@ -248,7 +241,7 @@ window.Quarto = {
 <section id="part-2" class="level3">
 <h3 class="anchored" data-anchor-id="part-2">Part 2</h3>
 <p>Taking the average of trip_duration_mins, considering the group size, to find average flow time of a customer, i.e., on average, how many minutes a customer spends in the store.</p>
-<div id="6bdd269d" class="cell" data-execution_count="3">
+<div id="ff3c97fb" class="cell" data-execution_count="3">
 <div class="sourceCode cell-code" id="cb4"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>weighted_duration <span class="op">=</span> (sess_level[<span class="st">"trip_duration_mins"</span>] <span class="op">*</span> sess_level[<span class="st">"group_size"</span>]).<span class="bu">sum</span>()</span>
 <span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>sum_group_size <span class="op">=</span> sess_level[<span class="st">"group_size"</span>].<span class="bu">sum</span>()</span>
 <span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>avg_W <span class="op">=</span> weighted_duration <span class="op">/</span> sum_group_size</span>
@@ -261,7 +254,7 @@ window.Quarto = {
 <section id="part-3" class="level3">
 <h3 class="anchored" data-anchor-id="part-3">Part 3</h3>
 <p>Constructing the inventory build-up diagram from 7am till 11pm.</p>
-<div id="d11189eb" class="cell" data-execution_count="4">
+<div id="b35441ea" class="cell" data-execution_count="4">
 <div class="sourceCode cell-code" id="cb6"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Create entry and exit data frames</span></span>
 <span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>entries <span class="op">=</span> sess_level.select(</span>
 <span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a>    pl.col(<span class="st">"entry_datetime"</span>).alias(<span class="st">"time"</span>),</span>
@@ -301,7 +294,7 @@ window.Quarto = {
 <section id="part-4" class="level3">
 <h3 class="anchored" data-anchor-id="part-4">Part 4</h3>
 <p>Calculating the total time summed up over all customers, i.e., the area under the inventory build-up diagram. Then, calculating the Inventory (or, the average inventory).</p>
-<div id="62651e92" class="cell" data-execution_count="5">
+<div id="00e0a4d8" class="cell" data-execution_count="5">
 <div class="sourceCode cell-code" id="cb7"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Define start and end to handle last val edge case (null duration for last val)</span></span>
 <span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>start <span class="op">=</span> datetime(<span class="dv">2024</span>, <span class="dv">2</span>, <span class="dv">28</span>, <span class="dv">7</span>, <span class="dv">0</span>, <span class="dv">0</span>)</span>
 <span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a>end   <span class="op">=</span> datetime(<span class="dv">2024</span>, <span class="dv">2</span>, <span class="dv">28</span>, <span class="dv">23</span>, <span class="dv">0</span>, <span class="dv">0</span>)</span>
@@ -330,7 +323,7 @@ window.Quarto = {
 <section id="part-5" class="level3">
 <h3 class="anchored" data-anchor-id="part-5">Part 5</h3>
 <p>Check the Little’s Law using the answers from above.</p>
-<div id="9f1fa6a2" class="cell" data-execution_count="6">
+<div id="f5202bdb" class="cell" data-execution_count="6">
 <div class="sourceCode cell-code" id="cb9"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Check Little's Law</span></span>
 <span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a><span class="co"># Inventory = Throughput * Flow Time</span></span>
 <span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a></span>

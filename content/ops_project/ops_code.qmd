@@ -24,13 +24,8 @@ Where:
 
 We will do this by manually calculating average inventory using an inventory build-up diagram and comparing that with the Little's Law output.
 
-### Method:
-* Deduplicated `session_id` to change from line item to order level.
-* Calculated average throughput (arrival rate) and average flow time (duration).
-
 ### Conclusion
 Showed that average inventory at any given time, calculated from both the inventory diagram and using Little's Law, was ~5.2 customers. Answers are verified and correct.
-
 
 ---
 

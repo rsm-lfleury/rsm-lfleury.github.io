@@ -1,0 +1,140 @@
+---
+title: "Final Project"
+author:
+  - Aanya Sikka
+  - Joyi Zhang
+  - Leo Fleury
+format: revealjs
+---
+
+## Understanding the Data
+This dataset shows European credit card transactions. It contains:
+
+1. 284,807 transactions
+2. 492 fraudulent transactions (only **0.17% fraud** — extremely imbalanced)
+3. 30 input features (V1–V28, Time, Amount)
+4. 1 output label (Class)
+
+## Time
+
+1. Seconds from the first transaction in the dataset.
+2. Helps detect fraud patterns across time e.g. bursts at certain hours.
+
+## Classes
+
+- 0 = legitimate transaction
+- 1 = fraudulent transaction
+
+## V1 - V28
+- Come from principal component analysis (PCA) and they are linear combinations of those raw features.
+- PCA done to **conserve privacy** (we still get the correlations relevant to predicting fraud but not the original features)
+
+## Distribution of Fraud Shows Inbalance
+
+![](class_dist.png){fig-align="center"}
+
+## Transactions Across Time Reveals Peak Hours
+
+
+![](time.png){fig-align="center"}
+
+## Corr. Matrix Reveals Best Predicting Features
+
+![](corr_matrix.png){fig-align="center"}
+
+## Logistic Regression Produces Probabilities...
+
+$$
+P(Y = 1 \mid X) = \frac{1}{1 + e^{-(\beta_0 + \beta_1 X_1 + \beta_2 X_2 + \cdots + \beta_k X_k)}}
+$$
+
+- **Weights $\beta$ and paramters $x$**
+- **Fraction (produces sigmoid)**
+
+## Confusion Matrix Hints at Inbalance & Low Precision
+
+![](confusion_matrix.png){fig-align="center"}
+
+## Log Reg Good at Assigning Higher Probability to Fraud But...
+
+![](roc_curve.png){fig-align="center"}
+
+## Model Struggles with False Positives
+
+![](pr_curve.png){fig-align="center"}
+
+## Distributions Show Slight Overlap
+
+![](predicted_fraud_distribution.png){fig-align="center"}
+
+## Log. Reg. Performance Summary
+
+```{text}
+Confusion matrix:
+[[55462  1402]
+ [    8    90]]
+
+Classification report (focus on Class 1 = fraud):
+              precision    recall  f1-score   support
+
+           0     0.9999    0.9753    0.9874     56864
+           1     0.0603    0.9184    0.1132        98
+
+    accuracy                         0.9752     56962
+   macro avg     0.5301    0.9469    0.5503     56962
+weighted avg     0.9982    0.9752    0.9859     56962
+
+
+ROC AUC: 0.9759
+PR AUC (Average Precision): 0.6499
+```
+
+## Using a 2nd ML Model (Decision Tree)
+
+![](decision_tree.jpeg){fig-align="center"}
+
+- Split on features → partition space → assign class in each region
+
+- Learns simple if–then rules instead of a formula
+
+## Confusion Matrix Also Reveals Lots of False Positives
+
+![](confusion_matrix2.png){fig-align="center"}
+
+## DT Also Consistently Ranks Fraud Higher But...
+
+![](roc_curve2.png){fig-align="center"}
+
+## Also Has Srong Percision/Recall Tradeoff
+
+![](pr_curve2.png){fig-align="center"}
+
+## Distributions Show Slightly More Overlap then Log. Reg.
+
+![](dist2.png){fig-align="center"}
+
+## DT Performance Summary
+
+```{text}
+=== Classification Report ===
+              precision    recall  f1-score   support
+
+           0       1.00      0.92      0.96     56864
+           1       0.02      0.90      0.04        98
+
+    accuracy                           0.92     56962
+   macro avg       0.51      0.91      0.50     56962
+weighted avg       1.00      0.92      0.96     56962
+
+
+=== Confusion Matrix ===
+[[52163  4701]
+ [   10    88]]
+
+=== ROC AUC ===
+0.9081733143454342
+```
+
+## Conclusion
+
+The distribution shows that while the Decision Tree confidently identifies some fraud, it **misses many others** and produces **poorly calibrated probabilities**. This confirms why Logistic Regression performs better overall.
