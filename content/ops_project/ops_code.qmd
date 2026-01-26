@@ -1,6 +1,6 @@
 ---
 title: "Verifying Little's Law Using and Inventory Build Up Diagram of UCSD's Rogers Market"
-format: gfm
+format: html
 ---
 ## Introduction
 

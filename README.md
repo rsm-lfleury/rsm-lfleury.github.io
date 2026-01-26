@@ -16,7 +16,7 @@ Graduate student pursuing Masters in Business Analytics at UCSD, building projec
 
 **Outcome:** Demonstrated that the average in-store customer level (~5.2 customers) computed from observed data matched the value predicted by Little’s Law, validating the consistency of the system metrics.
 
-[View the full analysis](content/ops_project/ops_code.md)
+[View the full analysis](content/ops_project/ops_code.html)
 
 ## Fraud Analytics Project: Investigating Fraud with Logistic Regression
 
