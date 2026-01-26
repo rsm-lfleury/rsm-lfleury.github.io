@@ -1,5 +1,6 @@
 theme: minima
+title: Leo Fleury
 
-# This tells Jekyll exactly which pages to show in the menu.
-# If you leave the brackets empty [], it will show NO links.
-header_pages: []
+header_pages:
+  - content/ops_project/ops_code.html
+  - content/fraud_project/fraud_code.html
