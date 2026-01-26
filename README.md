@@ -1,4 +1,15 @@
-Graduate student pursuing Masters in Business Analytics at UCSD, building projects that help business have efficient operations.
+# 👋 Hi, I'm Leo Fleury
+
+<img src="content/Leo_headshot_updated.jpg" width="150" height="150" style="border-radius:50%; float: left; margin-right: 20px;">
+
+I am a **Master of Science in Business Analytics (MSBA)** candidate at **UC San Diego's Rady School of Management** (Class of 2026).
+
+My passion lies in bridging the gap between complex data and actionable business strategy. I specialize in using machine learning and data visualization to solve operational problems.
+
+<br clear="left"/>
+
+### Technical Skills
+`Python` `Polars/Pandas` `SQL` `Machine Learning` `Data Visualization` `A/B Testing`
 
 ## Operations Analytics Project: Rogers Market
 
