@@ -17,8 +17,8 @@ My passion lies in bridging the gap between complex data and actionable business
 
 ### Contact
 * **Phone:** 470-338-1020
-* **Email:** [leoflurry@gmail.com](mailto:leoflurry@gmail.com)
-* **LinkedIn:** [linkedin.com/in/leo-fleury1/](linkedin.com/in/leo-fleury1/)
+* **Email:** [leofleury@gmail.com](mailto:leofleury@gmail.com)
+* **LinkedIn:** [linkedin.com/in/leo-fleury1](https://www.linkedin.com/in/leo-fleury1/)
 * **Location:** San Diego, CA / Atlanta, GA
 
 # Projects
