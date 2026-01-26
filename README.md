@@ -10,10 +10,16 @@ I am a **Master of Science in Business Analytics (MSBA)** candidate at **UC San 
 
 My passion lies in bridging the gap between complex data and actionable business strategy. I specialize in using machine learning and data visualization to solve operational problems.
 
+<br clear="left"/>
+
 ### Technical Skills
 `Python` `Polars/Pandas` `SQL` `Machine Learning` `Data Visualization` `A/B Testing`
 
-<br clear="left"/>
+### Contact
+* **Phone:** 470-338-1020
+* **Email:** [leoflurry@gmail.com](mailto:leoflurry@gmail.com)
+* **LinkedIn:** [linkedin.com/in/leo-fleury1/](linkedin.com/in/leo-fleury1/)
+* **Location:** San Diego, CA / Atlanta, GA
 
 # Projects
 
