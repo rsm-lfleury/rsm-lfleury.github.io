@@ -4,13 +4,19 @@ Graduate student pursuing Masters in Business Analytics at UCSD, building projec
 
 **Problem:** Investigated the operational efficiency of Rogers Market’s Amazon walk-out technology by analyzing average student trip duration and in-store customer levels.
 
+<div align="center">
+  <img src="content/ops_project/inventory_diagram.png" width="600" alt="Inventory Build-up Diagram">
+  <br>
+  <em>Figure 1: Visualizing customer inventory accumulation over time.</em>
+</div>
+
 **Approach:**
 - Constructed an inventory-over-time diagram (customers in store vs. time) and computed average in-store inventory by dividing the total area under the curve by total operating time.
 - Validated the observed average inventory using Little’s Law by multiplying average throughput and average flow time.
 
 **Outcome:** Demonstrated that the average in-store customer level (~5.2 customers) computed from observed data matched the value predicted by Little’s Law, validating the consistency of the system metrics.
 
-[View the full analysis]("content/ops_project/ops_html.html")
+[View the full analysis](content/ops_project/ops_html.html)
 
 ## Fraud Analytics Project: Investigating Fraud with Logistic Regression
 
