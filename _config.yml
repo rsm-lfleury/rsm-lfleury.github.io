@@ -1,1 +1,5 @@
 theme: minima
+
+# This tells Jekyll exactly which pages to show in the menu.
+# If you leave the brackets empty [], it will show NO links.
+header_pages: []

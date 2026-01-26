@@ -1,4 +1,4 @@
-# 👋 Hi, I'm Leo Fleury
+# Hi, I'm Leo Fleury
 
 <img src="content/Leo_headshot_updated.jpg" width="150" height="150" style="border-radius:50%; float: left; margin-right: 20px;">
 
