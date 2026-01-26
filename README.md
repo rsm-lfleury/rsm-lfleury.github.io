@@ -17,7 +17,7 @@ My passion lies in bridging the gap between complex data and actionable business
 
 # Projects
 
-## Operations Analytics Project: Rogers Market
+### Operations Analytics Project: Rogers Market
 
 **Problem:** Investigated the operational efficiency of Rogers Market’s Amazon walk-out technology by analyzing average student trip duration and in-store customer levels.
 
@@ -35,7 +35,7 @@ My passion lies in bridging the gap between complex data and actionable business
 
 [View the full analysis](content/ops_project/ops_code.html)
 
-## Fraud Analytics Project: Investigating Fraud with Logistic Regression
+### Fraud Analytics Project: Investigating Fraud with Logistic Regression
 
 **Problem:** Predicting the probability of fraudulent bank transactions in a heavily imbalanced data set (relatively low fraud) is difficult as accuracy becomes a bad measure of model accuracy.
 
